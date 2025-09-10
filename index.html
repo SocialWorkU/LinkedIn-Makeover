@@ -1,0 +1,1566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SocialWorkU LinkedIn Optimizer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f8fafc;
+            color: #1a202c;
+            line-height: 1.6;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #0077b5 0%, #163C77 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .header p {
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .tool-layout {
+            display: block;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .analyzer-section, .recommendations-section {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #163C77;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .input-method-tabs {
+            display: flex;
+            margin-bottom: 20px;
+            background: #f7fafc;
+            border-radius: 8px;
+            padding: 4px;
+        }
+        
+        .input-tab {
+            flex: 1;
+            background: none;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            color: #4a5568;
+            transition: all 0.2s ease;
+        }
+        
+        .input-tab.active {
+            background: #163C77;
+            color: white;
+        }
+        
+        .input-section {
+            margin-bottom: 25px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            color: #2d3748;
+            margin-bottom: 6px;
+        }
+        
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            transition: border-color 0.2s ease;
+        }
+        
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+            outline: none;
+            border-color: #0077b5;
+        }
+        
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .btn {
+            background: #0077b5;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            width: 100%;
+        }
+        
+        .btn:hover {
+            background: #005885;
+        }
+        
+        .btn-secondary {
+            background: #6b7280;
+        }
+        
+        .btn-secondary:hover {
+            background: #4b5563;
+        }
+        
+        .btn-small {
+            padding: 8px 12px;
+            font-size: 0.8rem;
+            flex: 1;
+            width: auto;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+        
+        .analysis-results {
+            margin-top: 20px;
+        }
+        
+        .score-card {
+            background: linear-gradient(135deg, #0077b5, #163C77);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .score-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .score-label {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+        
+        .score-breakdown {
+            background: #f7fafc;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .score-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .score-item:last-child {
+            border-bottom: none;
+        }
+        
+        .score-item-name {
+            font-weight: 500;
+            color: #2d3748;
+        }
+        
+        .score-item-value {
+            font-weight: 600;
+            color: #0077b5;
+        }
+        
+        .analysis-section {
+            background: #f7fafc;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .analysis-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .analysis-title {
+            font-weight: 600;
+            color: #163C77;
+            flex: 1;
+        }
+        
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .status-excellent {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        
+        .status-good {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        
+        .status-warning {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        
+        .status-needs-work {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        
+        .recommendation-list {
+            list-style: none;
+        }
+        
+        .recommendation-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            border-left: 4px solid #3CBFBF;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .recommendation-type {
+            font-weight: 600;
+            color: #163C77;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+        
+        .recommendation-text {
+            color: #4a5568;
+            margin-bottom: 8px;
+        }
+        
+        .keyword-suggestions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 8px;
+        }
+        
+        .keyword-tag {
+            background: #e0f2fe;
+            color: #0277bd;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .keyword-tag:hover {
+            background: #0277bd;
+            color: white;
+        }
+        
+        .template-section {
+            background: #f0f9ff;
+            border: 1px solid #0ea5e9;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        
+        .template-title {
+            color: #163C77;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .template-text {
+            background: white;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+            font-family: 'Georgia', serif;
+            line-height: 1.5;
+            font-size: 0.9rem;
+            color: #2d3748;
+        }
+        
+        .copy-btn {
+            background: #3CBFBF;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+        
+        .copy-btn:hover {
+            background: #2dd4bf;
+        }
+        
+        .privacy-notice {
+            background: #fffbeb;
+            border: 1px solid #f59e0b;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+            font-size: 0.9rem;
+        }
+        
+        .privacy-notice h4 {
+            color: #92400e;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid #e2e8f0;
+            margin-bottom: 20px;
+        }
+        
+        .tab {
+            padding: 12px 20px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            color: #4a5568;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s ease;
+        }
+        
+        .tab.active {
+            color: #163C77;
+            border-bottom-color: #0077b5;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .message {
+            padding: 10px 15px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            display: none;
+        }
+        
+        .message.success {
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #10b981;
+        }
+        
+        .message.error {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #ef4444;
+        }
+        
+        .example-text {
+            color: #9ca3af;
+            font-style: italic;
+        }
+        
+        .user-text {
+            color: #1a202c;
+            font-style: normal;
+        }
+        
+        @media (max-width: 768px) {
+            .btn-group {
+                flex-direction: column;
+            }
+            
+            .btn-small {
+                width: 100%;
+                margin-bottom: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>LinkedIn Profile Optimizer for Social Workers</h1>
+        <p>Enhance your professional presence with data-driven recommendations</p>
+    </div>
+
+    <div class="container">
+        <div class="privacy-notice">
+            <h4>🔒 Privacy-First Analysis</h4>
+            <p>Your LinkedIn content is analyzed locally in your browser. No data is sent to external servers or stored by SocialWorkU. This ensures compliance with social work confidentiality standards.</p>
+        </div>
+
+        <div class="tool-layout">
+            <div id="messageArea" class="message"></div>
+            
+            <!-- Analyzer Section -->
+            <div class="analyzer-section">
+                <h2 class="section-title">
+                    <span>🔍</span> Profile Analyzer
+                </h2>
+                
+                <div class="input-method-tabs">
+                    <button class="input-tab active" onclick="switchInputMethod('paste')">Paste Profile</button>
+                    <button class="input-tab" onclick="switchInputMethod('form')">Fill Form</button>
+                </div>
+                
+                <!-- Paste Method -->
+                <div id="paste-method" class="input-section">
+                    <div class="form-group">
+                        <label for="linkedinUrl">LinkedIn Profile URL (reference only - cannot auto-fetch)</label>
+                        <input type="url" id="linkedinUrl" placeholder="https://linkedin.com/in/yourprofile">
+                        <small style="color: #6b7280; font-size: 0.8rem;">Note: You must manually copy/paste your profile content below. The tool cannot automatically fetch LinkedIn data due to security restrictions.</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="profileText">Paste Your LinkedIn Profile Content</label>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-secondary btn-small" onclick="loadSampleProfile()">📝 Load Sample</button>
+                            <button type="button" class="btn btn-secondary btn-small" onclick="generateSuggestedText()">✨ AI Tips</button>
+                            <button type="button" class="btn btn-secondary btn-small" onclick="clearProfileText()">🗑️ Clear All</button>
+                        </div>
+                        <textarea id="profileText" rows="12" placeholder="Copy and paste your LinkedIn headline, about section, experience, and skills here. Include as much detail as you'd like analyzed..." class="example-text" onfocus="makeTextNormal(this)" oninput="makeTextNormal(this)"></textarea>
+                        <small style="color: #6b7280; font-size: 0.8rem;">Tip: Copy everything from your LinkedIn profile including headline, about section, experience descriptions, and skills.</small>
+                    </div>
+                </div>
+                
+                <!-- Form Method -->
+                <div id="form-method" class="input-section" style="display: none;">
+                    <div class="form-group">
+                        <label for="headline">Current Headline</label>
+                        <input type="text" id="headline" placeholder="Clinical Social Worker at Community Health Center">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="about">About Section</label>
+                        <div class="btn-group">
+                            <button type="button" id="examplesBtn" class="btn btn-secondary btn-small">📝 Examples</button>
+                            <button type="button" id="aiTipsBtn" class="btn btn-secondary btn-small">✨ AI Tips</button>
+                            <button type="button" id="clearAboutBtn" class="btn btn-secondary btn-small">🗑️ Clear</button>
+                        </div>
+                        <textarea id="about" rows="4" placeholder="Your current LinkedIn about section..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="currentRole">Current Position & Employer</label>
+                        <input type="text" id="currentRole" placeholder="Clinical Social Worker, Austin Mental Health Center">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="targetRole">Target Role/Career Goal</label>
+                        <select id="targetRole">
+                            <option value="">Select target role...</option>
+                            <option value="clinical">Clinical Social Worker (LCSW track)</option>
+                            <option value="school">School Social Worker</option>
+                            <option value="medical">Medical/Healthcare Social Worker</option>
+                            <option value="community">Community Social Worker</option>
+                            <option value="policy">Policy & Advocacy</option>
+                            <option value="management">Social Work Management/Supervision</option>
+                            <option value="private-practice">Private Practice</option>
+                            <option value="macro">Macro/Administrative Social Work</option>
+                        </select>
+                    </div>
+                    
+                    <div class="btn-group" style="margin-bottom: 15px;">
+                        <button type="button" id="clearAllBtn" class="btn btn-secondary btn-small">🗑️ Clear All Fields</button>
+                        <button type="button" id="formTipsBtn" class="btn btn-secondary btn-small">✨ Form Tips</button>
+                    </div>
+                </div>
+                
+                <button class="btn" onclick="analyzeProfile()">🔍 Analyze My Profile</button>
+                
+                <div class="analysis-results" id="analysisResults" style="display: none;">
+                    <div class="score-card">
+                        <div class="score-number" id="profileScore">0</div>
+                        <div class="score-label">Professional Optimization Score</div>
+                    </div>
+                    
+                    <div class="score-breakdown" id="scoreBreakdown"></div>
+                    
+                    <div id="analysisDetails"></div>
+                </div>
+            </div>
+            
+            <!-- Recommendations Section -->
+            <div class="recommendations-section">
+                <h2 class="section-title">
+                    <span>💡</span> Recommendations
+                </h2>
+                
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('suggestions')">Suggestions</button>
+                    <button class="tab" onclick="switchTab('templates')">Templates</button>
+                    <button class="tab" onclick="switchTab('keywords')">Keywords</button>
+                </div>
+                
+                <!-- Suggestions Tab -->
+                <div class="tab-content active" id="suggestions-tab">
+                    <div id="recommendationsList">
+                        <div class="recommendation-item">
+                            <div class="recommendation-type">Getting Started</div>
+                            <div class="recommendation-text">Analyze your profile to receive personalized recommendations for optimizing your LinkedIn presence as a social work professional.</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Templates Tab -->
+                <div class="tab-content" id="templates-tab">
+                    <div class="template-section">
+                        <div class="template-title">Clinical Social Worker Headline Template</div>
+                        <div class="template-text">
+                            Licensed Clinical Social Worker | Mental Health Advocate | Trauma-Informed Care Specialist | Empowering Communities Through Evidence-Based Practice
+                        </div>
+                        <button class="copy-btn" onclick="copyToClipboard(this)">Copy Template</button>
+                    </div>
+                    
+                    <div class="template-section">
+                        <div class="template-title">School Social Worker About Section</div>
+                        <div class="template-text">
+                            Dedicated School Social Worker committed to supporting student success through comprehensive mental health services and family engagement. Experienced in crisis intervention, behavioral support planning, and collaboration with multidisciplinary teams to create inclusive educational environments.
+                            
+                            Specialties: Student counseling, family engagement, behavioral interventions, crisis response, 504/IEP support, trauma-informed practices in schools.
+                        </div>
+                        <button class="copy-btn" onclick="copyToClipboard(this)">Copy Template</button>
+                    </div>
+                    
+                    <div class="template-section">
+                        <div class="template-title">Healthcare Social Worker Profile</div>
+                        <div class="template-text">
+                            Experienced Healthcare Social Worker specializing in discharge planning, patient advocacy, and psychosocial support in acute care settings. Skilled in connecting patients and families with community resources while navigating complex healthcare systems.
+                            
+                            Core Competencies: Discharge planning, case management, patient advocacy, psychosocial assessment, healthcare ethics, interdisciplinary collaboration.
+                        </div>
+                        <button class="copy-btn" onclick="copyToClipboard(this)">Copy Template</button>
+                    </div>
+                </div>
+                
+                <!-- Keywords Tab -->
+                <div class="tab-content" id="keywords-tab">
+                    <div style="margin-bottom: 20px;">
+                        <h4 style="color: #163C77; margin-bottom: 10px;">Essential Social Work Keywords</h4>
+                        <div class="keyword-suggestions">
+                            <div class="keyword-tag">Licensed Social Worker</div>
+                            <div class="keyword-tag">Clinical Social Work</div>
+                            <div class="keyword-tag">Case Management</div>
+                            <div class="keyword-tag">Crisis Intervention</div>
+                            <div class="keyword-tag">Trauma-Informed Care</div>
+                            <div class="keyword-tag">Mental Health</div>
+                            <div class="keyword-tag">Community Outreach</div>
+                            <div class="keyword-tag">Patient Advocacy</div>
+                            <div class="keyword-tag">Evidence-Based Practice</div>
+                            <div class="keyword-tag">Psychosocial Assessment</div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <h4 style="color: #163C77; margin-bottom: 10px;">Therapeutic Approaches</h4>
+                        <div class="keyword-suggestions">
+                            <div class="keyword-tag">Cognitive Behavioral Therapy</div>
+                            <div class="keyword-tag">Dialectical Behavior Therapy</div>
+                            <div class="keyword-tag">Motivational Interviewing</div>
+                            <div class="keyword-tag">Solution-Focused Therapy</div>
+                            <div class="keyword-tag">Family Systems Therapy</div>
+                            <div class="keyword-tag">Group Therapy</div>
+                            <div class="keyword-tag">EMDR</div>
+                            <div class="keyword-tag">Mindfulness-Based Interventions</div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <h4 style="color: #163C77; margin-bottom: 10px;">Population Specialties</h4>
+                        <div class="keyword-suggestions">
+                            <div class="keyword-tag">Children & Adolescents</div>
+                            <div class="keyword-tag">Families</div>
+                            <div class="keyword-tag">Veterans</div>
+                            <div class="keyword-tag">LGBTQ+ Community</div>
+                            <div class="keyword-tag">Seniors</div>
+                            <div class="keyword-tag">Substance Use Disorders</div>
+                            <div class="keyword-tag">Homeless Population</div>
+                            <div class="keyword-tag">Refugees & Immigrants</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables and initialization
+        var messageArea = null;
+        var profileTextArea = null;
+        var analysisResults = null;
+        var currentInputMethod = 'paste';
+        
+        // LinkedIn Profile Section Weights (your requested system)
+        var PROFILE_WEIGHTS = {
+            headline: 0.20,
+            photo: 0.10,
+            about: 0.15,
+            experience: 0.25,
+            skills: 0.10,
+            recommendations: 0.05,
+            education: 0.05,
+            featured: 0.05,
+            licenses: 0.03,
+            volunteer: 0.02
+        };
+
+        // Initialize when page loads
+        window.onload = function() {
+            messageArea = document.getElementById('messageArea');
+            profileTextArea = document.getElementById('profileText');
+            analysisResults = document.getElementById('analysisResults');
+            
+            // Set up event handlers for form buttons
+            setupFormButtonHandlers();
+            
+            console.log('LinkedIn Optimizer loaded successfully');
+        };
+
+        // Set up event handlers for the form buttons
+        function setupFormButtonHandlers() {
+            // Examples button
+            var examplesBtn = document.getElementById('examplesBtn');
+            if (examplesBtn) {
+                examplesBtn.addEventListener('click', handleExamplesClick);
+            }
+            
+            // AI Tips button
+            var aiTipsBtn = document.getElementById('aiTipsBtn');
+            if (aiTipsBtn) {
+                aiTipsBtn.addEventListener('click', handleAITipsClick);
+            }
+            
+            // Clear About button
+            var clearAboutBtn = document.getElementById('clearAboutBtn');
+            if (clearAboutBtn) {
+                clearAboutBtn.addEventListener('click', handleClearAboutClick);
+            }
+            
+            // Clear All button
+            var clearAllBtn = document.getElementById('clearAllBtn');
+            if (clearAllBtn) {
+                clearAllBtn.addEventListener('click', handleClearAllClick);
+            }
+            
+            // Form Tips button
+            var formTipsBtn = document.getElementById('formTipsBtn');
+            if (formTipsBtn) {
+                formTipsBtn.addEventListener('click', handleFormTipsClick);
+            }
+        }
+
+        // Form button handlers - Now properly implemented
+        function handleExamplesClick() {
+            console.log('Loading about section examples...');
+            
+            var examples = [
+                {
+                    type: 'Clinical Social Worker',
+                    content: 'Compassionate Licensed Clinical Social Worker with 7+ years of experience providing individual and group therapy in community mental health settings. Specialized in trauma-informed care, cognitive behavioral therapy, and crisis intervention.\n\nCore Competencies: CBT, DBT, EMDR, Crisis Intervention, Case Management, Group Facilitation\n\nPopulations Served: Adults with serious mental illness, trauma survivors, individuals with substance use disorders\n\nProfessional Mission: Reducing mental health stigma while providing evidence-based, culturally responsive care.'
+                },
+                {
+                    type: 'School Social Worker', 
+                    content: 'Dedicated School Social Worker committed to student success through comprehensive mental health services and family engagement. Experienced in crisis intervention, behavioral support planning, and collaboration with multidisciplinary teams.\n\nSpecializations: Student counseling, behavioral interventions, crisis response, 504/IEP support, restorative justice practices\n\nStudent Impact: Serving 500+ students annually, achieving 35% reduction in suspensions through trauma-informed approaches\n\nCommitted to educational equity and building strong school-community partnerships.'
+                },
+                {
+                    type: 'Healthcare Social Worker',
+                    content: 'Results-driven Healthcare Social Worker specializing in discharge planning, case management, and patient advocacy in acute care settings. Proven ability to coordinate complex care transitions while providing psychosocial support.\n\nAreas of Expertise: Discharge planning, insurance navigation, medical social work, interdisciplinary collaboration, community resource coordination\n\nPatient Outcomes: Reduced average length of stay by 1.2 days, maintained 95% satisfaction scores, successful transitions for 300+ families annually\n\nProfessional Values: Ensuring dignified, patient-centered care while advocating for equitable healthcare access.'
+                }
+            ];
+            
+            var randomExample = examples[Math.floor(Math.random() * examples.length)];
+            
+            if (confirm('Load this ' + randomExample.type + ' example?\n\n' + randomExample.content.substring(0, 200) + '...\n\nClick OK to load the full example.')) {
+                var aboutField = document.getElementById('about');
+                if (aboutField) {
+                    aboutField.value = randomExample.content;
+                    showMessage('Example loaded! Customize it to match your experience.', 'success');
+                } else {
+                    showMessage('Error: About field not found', 'error');
+                }
+            }
+        }
+
+        function handleAITipsClick() {
+            console.log('Showing AI tips...');
+            
+            // Check if user has content in about field for personalized tips
+            var aboutField = document.getElementById('about');
+            var currentContent = aboutField ? aboutField.value.trim() : '';
+            
+            var tips = 'ABOUT SECTION OPTIMIZATION GUIDE:\n\n';
+            
+            if (currentContent) {
+                tips += 'ANALYSIS OF YOUR CURRENT CONTENT:\n';
+                if (currentContent.length < 150) {
+                    tips += '• Your about section is quite brief - consider expanding to 200-400 words\n';
+                }
+                if (!/\b(lcsw|lmsw|lgsw|lsw|licensed)\b/i.test(currentContent)) {
+                    tips += '• Add your professional license type prominently\n';
+                }
+                if (!/\b(cbt|dbt|emdr|trauma|crisis)\b/i.test(currentContent)) {
+                    tips += '• Include specific therapeutic approaches you use\n';
+                }
+                if (!/\d+\s*(year|client|patient)/i.test(currentContent)) {
+                    tips += '• Add quantifiable elements (years experience, client numbers)\n';
+                }
+                tips += '\n';
+            }
+            
+            tips += 'RECOMMENDED STRUCTURE:\n\n' +
+                '1. PROFESSIONAL IDENTITY (50-75 words)\n' +
+                '• Lead with license type and years of experience\n' +
+                '• Mention primary practice setting\n' +
+                '• Include main specialization area\n\n' +
+                
+                '2. CORE COMPETENCIES (75-100 words)\n' +
+                '• List 3-5 evidence-based practices\n' +
+                '• Include therapeutic approaches (CBT, DBT, EMDR)\n' +
+                '• Mention assessment and intervention skills\n\n' +
+                
+                '3. POPULATIONS & IMPACT (75-100 words)\n' +
+                '• Specify populations served (maintain confidentiality)\n' +
+                '• Include quantifiable achievements\n' +
+                '• Highlight collaborative work\n\n' +
+                
+                '4. VALUES & CALL TO ACTION (50-75 words)\n' +
+                '• State professional values or mission\n' +
+                '• Include what drives your passion\n' +
+                '• End with connection invitation';
+            
+            alert(tips);
+            showMessage('Personalized AI optimization tips displayed!', 'success');
+        }
+
+        function handleClearAboutClick() {
+            console.log('Clearing about section...');
+            
+            if (confirm('Clear the About section field? This cannot be undone.')) {
+                var aboutField = document.getElementById('about');
+                if (aboutField) {
+                    aboutField.value = '';
+                    showMessage('About section cleared', 'success');
+                    resetAnalyzer();
+                } else {
+                    showMessage('Error: About field not found', 'error');
+                }
+            }
+        }
+
+        function handleClearAllClick() {
+            console.log('Clearing all form fields...');
+            
+            if (confirm('Clear all form fields? This will reset the analyzer completely.')) {
+                var headline = document.getElementById('headline');
+                var about = document.getElementById('about');
+                var currentRole = document.getElementById('currentRole');
+                var targetRole = document.getElementById('targetRole');
+                
+                if (headline) headline.value = '';
+                if (about) about.value = '';
+                if (currentRole) currentRole.value = '';
+                if (targetRole) targetRole.selectedIndex = 0;
+                
+                resetAnalyzer();
+                showMessage('All form fields cleared and analyzer reset', 'success');
+            }
+        }
+
+        function handleFormTipsClick() {
+            console.log('Showing form optimization tips...');
+            
+            // Analyze current form content for personalized tips
+            var headline = document.getElementById('headline');
+            var about = document.getElementById('about');
+            var currentRole = document.getElementById('currentRole');
+            var targetRole = document.getElementById('targetRole');
+            
+            var headlineText = headline ? headline.value.trim() : '';
+            var aboutText = about ? about.value.trim() : '';
+            var roleText = currentRole ? currentRole.value.trim() : '';
+            var selectedTarget = targetRole ? targetRole.value : '';
+            
+            var tips = 'FORM OPTIMIZATION STRATEGY:\n\n';
+            
+            // Personalized feedback based on what they've filled out
+            if (!headlineText && !aboutText && !roleText) {
+                tips += 'START HERE:\n' +
+                    '• Fill out your Current Headline first\n' +
+                    '• Use the Examples button for About section templates\n' +
+                    '• Select your Target Role for personalized recommendations\n\n';
+            }
+            
+            if (headlineText) {
+                tips += 'HEADLINE ANALYSIS:\n';
+                if (!/\b(lcsw|lmsw|lgsw|lsw)\b/i.test(headlineText)) {
+                    tips += '• Add your license type (LCSW, LMSW, etc.)\n';
+                }
+                if (!/\b(clinical|school|medical|healthcare|community)\b/i.test(headlineText)) {
+                    tips += '• Include your specialization area\n';
+                }
+                tips += '• Keep under 120 characters for LinkedIn\n\n';
+            } else {
+                tips += 'HEADLINE TIPS:\n' +
+                    '• Start with your license type\n' +
+                    '• Add specialization (Clinical, School, Healthcare)\n' +
+                    '• Include value words (Advocate, Specialist)\n' +
+                    '• Example: "Licensed Clinical Social Worker | Trauma Specialist"\n\n';
+            }
+            
+            if (selectedTarget) {
+                tips += 'TARGET ROLE OPTIMIZATION:\n';
+                switch(selectedTarget) {
+                    case 'clinical':
+                        tips += '• Emphasize therapeutic approaches (CBT, DBT, EMDR)\n' +
+                               '• Include clinical supervision experience\n' +
+                               '• Highlight evidence-based practices\n';
+                        break;
+                    case 'school':
+                        tips += '• Focus on behavioral interventions\n' +
+                               '• Mention 504/IEP collaboration\n' +
+                               '• Include crisis response experience\n';
+                        break;
+                    case 'medical':
+                        tips += '• Emphasize discharge planning skills\n' +
+                               '• Highlight interdisciplinary collaboration\n' +
+                               '• Include patient advocacy experience\n';
+                        break;
+                    default:
+                        tips += '• Tailor keywords to your target role\n' +
+                               '• Research job descriptions for key terms\n' +
+                               '• Align experience with role requirements\n';
+                }
+                tips += '\n';
+            }
+            
+            tips += 'NEXT STEPS:\n' +
+                '• Complete all form fields\n' +
+                '• Use "Analyze My Profile" for detailed scoring\n' +
+                '• Check the Keywords tab for optimization terms\n' +
+                '• Review Templates tab for additional examples';
+            
+            alert(tips);
+            showMessage('Personalized form optimization strategy displayed!', 'success');
+        }
+
+        // Reset analyzer results
+        function resetAnalyzer() {
+            if (analysisResults) {
+                analysisResults.style.display = 'none';
+            }
+        }
+
+        // Message display function
+        function showMessage(text, type) {
+            if (messageArea) {
+                messageArea.textContent = text;
+                messageArea.className = 'message ' + type;
+                messageArea.style.display = 'block';
+                
+                setTimeout(function() {
+                    messageArea.style.display = 'none';
+                }, 4000);
+            }
+        }
+
+        // Switch between input methods
+        function switchInputMethod(method) {
+            currentInputMethod = method;
+            
+            var tabs = document.querySelectorAll('.input-tab');
+            for (var i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove('active');
+            }
+            
+            if (method === 'paste') {
+                document.getElementById('paste-method').style.display = 'block';
+                document.getElementById('form-method').style.display = 'none';
+                tabs[0].classList.add('active');
+            } else {
+                document.getElementById('paste-method').style.display = 'none';
+                document.getElementById('form-method').style.display = 'block';
+                tabs[1].classList.add('active');
+            }
+        }
+
+        // Switch recommendation tabs
+        function switchTab(tabName) {
+            var contents = document.querySelectorAll('.tab-content');
+            var tabs = document.querySelectorAll('.tab');
+            
+            for (var i = 0; i < contents.length; i++) {
+                contents[i].classList.remove('active');
+            }
+            
+            for (var i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove('active');
+            }
+            
+            var targetTab = document.getElementById(tabName + '-tab');
+            if (targetTab) {
+                targetTab.classList.add('active');
+            }
+            
+            // Find which tab button was clicked and make it active
+            event.target.classList.add('active');
+        }
+
+        // Make textarea text normal (remove placeholder styling)
+        function makeTextNormal(element) {
+            element.classList.remove('example-text');
+            element.classList.add('user-text');
+        }
+
+        // Load sample profiles
+        function loadSampleProfile() {
+            var samples = [
+                'Licensed Clinical Social Worker | Trauma Specialist | Community Mental Health Advocate\n\n' +
+                'Dedicated Licensed Clinical Social Worker with 7+ years of experience providing evidence-based therapy to diverse populations in community mental health settings. Expertise in trauma-informed care, cognitive behavioral therapy, and crisis intervention. Passionate about reducing mental health stigma and improving access to quality care.\n\n' +
+                'Experience:\n' +
+                'Senior Clinical Social Worker, Metro Community Health Center (2020-Present)\n' +
+                '• Provide individual and group therapy to 35+ clients weekly using CBT, DBT, and EMDR approaches\n' +
+                '• Reduced client crisis episodes by 45% through innovative safety planning protocols\n' +
+                '• Supervise 3 MSW interns in clinical practice development\n' +
+                '• Lead agency-wide trauma-informed care training initiatives\n\n' +
+                'Education:\n' +
+                'Master of Social Work (MSW), University of Texas at Austin - Clinical Concentration\n' +
+                'Bachelor of Social Work (BSW), Texas State University\n\n' +
+                'Licenses & Certifications:\n' +
+                'LCSW - Texas (License #78901)\n' +
+                'Certified EMDR Therapist\n' +
+                'Mental Health First Aid Instructor\n' +
+                'Trauma-Informed Care Specialist\n\n' +
+                'Skills: Clinical Assessment, CBT, DBT, EMDR, Crisis Intervention, Group Therapy, Case Management, Documentation, Supervision',
+                
+                'School Social Worker | Student Advocate | Mental Health Champion | Serving 500+ Students\n\n' +
+                'Experienced School Social Worker committed to student success through comprehensive mental health services, behavioral interventions, and family engagement. Skilled in crisis response, individualized support planning, and creating inclusive educational environments for all learners.\n\n' +
+                'Experience:\n' +
+                'School Social Worker, Austin Independent School District (2019-Present)\n' +
+                '• Serve 500+ students across three elementary campuses providing direct services\n' +
+                '• Reduced student suspensions by 35% through restorative justice practices\n' +
+                '• Coordinate with teachers, counselors, and administrators on behavioral intervention plans\n' +
+                '• Provide crisis intervention and grief counseling services to students and families\n\n' +
+                'Education:\n' +
+                'Master of Social Work (MSW), University of Texas at San Antonio - School Social Work Track\n' +
+                'Bachelor of Social Work (BSW), Texas State University\n\n' +
+                'Licenses & Certifications:\n' +
+                'Licensed Master Social Worker (LMSW) - Texas\n' +
+                'Youth Mental Health First Aid Certified\n' +
+                'Trauma-Informed Schools Specialist\n\n' +
+                'Skills: Student Assessment, Behavioral Interventions, Crisis Response, Family Engagement, IEP/504 Collaboration'
+            ];
+            
+            var randomSample = samples[Math.floor(Math.random() * samples.length)];
+            
+            if (profileTextArea) {
+                profileTextArea.value = randomSample;
+                profileTextArea.classList.remove('example-text');
+                profileTextArea.classList.add('user-text');
+                showMessage('Sample profile loaded successfully!', 'success');
+            }
+        }
+
+        // Clear profile text
+        function clearProfileText() {
+            if (profileTextArea) {
+                profileTextArea.value = '';
+                profileTextArea.classList.remove('user-text');
+                profileTextArea.classList.add('example-text');
+                
+                if (analysisResults) {
+                    analysisResults.style.display = 'none';
+                }
+                
+                showMessage('Profile content cleared', 'success');
+            }
+        }
+
+        // Show AI optimization tips
+        function generateSuggestedText() {
+            var tips = 'LinkedIn Profile Optimization Tips for Social Workers:\n\n' +
+                '🎯 HEADLINE OPTIMIZATION:\n' +
+                '• Include your license type (LCSW, LMSW, LGSW)\n' +
+                '• Add your specialization or practice area\n' +
+                '• Use action words that show impact\n' +
+                '• Keep under 120 characters\n\n' +
+                '📝 ABOUT SECTION TIPS:\n' +
+                '• Lead with years of experience and credentials\n' +
+                '• Include 3-5 core competencies\n' +
+                '• Mention specific populations you serve\n' +
+                '• Add quantifiable achievements\n' +
+                '• End with your professional mission\n\n' +
+                '💼 EXPERIENCE OPTIMIZATION:\n' +
+                '• Use strong action verbs (Provided, Coordinated, Facilitated)\n' +
+                '• Include client numbers or caseload sizes\n' +
+                '• Mention evidence-based practices used\n' +
+                '• Highlight collaborative work\n' +
+                '• Add measurable outcomes when possible\n\n' +
+                '⚖️ ETHICAL CONSIDERATIONS:\n' +
+                '• Never share specific client information\n' +
+                '• Use general population terms\n' +
+                '• Maintain professional boundaries\n' +
+                '• Follow your organization\'s social media policy';
+
+            alert(tips);
+            showMessage('AI optimization tips displayed!', 'success');
+        }
+
+        // Build profile from form fields
+        function buildProfileFromForm() {
+            var headline = document.getElementById('headline') ? document.getElementById('headline').value : '';
+            var about = document.getElementById('about') ? document.getElementById('about').value : '';
+            var currentRole = document.getElementById('currentRole') ? document.getElementById('currentRole').value : '';
+            
+            return (headline + '\n\n' + about + '\n\n' + currentRole).trim();
+        }
+
+        // Main analysis function
+        function analyzeProfile() {
+            var profileText = '';
+            
+            if (currentInputMethod === 'paste') {
+                profileText = profileTextArea ? profileTextArea.value : '';
+            } else {
+                profileText = buildProfileFromForm();
+            }
+            
+            if (!profileText.trim()) {
+                showMessage('Please provide your LinkedIn profile content to analyze.', 'error');
+                return;
+            }
+            
+            var analysis = performAnalysis(profileText);
+            
+            // Update score display
+            var scoreElement = document.getElementById('profileScore');
+            if (scoreElement) {
+                scoreElement.textContent = analysis.totalScore;
+            }
+            
+            // Update score breakdown
+            updateScoreBreakdown(analysis.sectionScores);
+            
+            // Update detailed analysis
+            updateAnalysisDetails(analysis);
+            
+            // Update recommendations
+            updateRecommendations(analysis);
+            
+            // Show results
+            if (analysisResults) {
+                analysisResults.style.display = 'block';
+                analysisResults.scrollIntoView({ behavior: 'smooth' });
+            }
+            
+            showMessage('Analysis complete! Check your results below.', 'success');
+        }
+
+        // Analysis function using your weighted system
+        function performAnalysis(profileText) {
+            var text = profileText.toLowerCase();
+            var sectionScores = {};
+            
+            // Analyze each section
+            sectionScores.headline = analyzeHeadline(text);
+            sectionScores.photo = 5; // Base assumption
+            sectionScores.about = analyzeAbout(text);
+            sectionScores.experience = analyzeExperience(text);
+            sectionScores.skills = analyzeSkills(text);
+            sectionScores.recommendations = 3; // Base assumption
+            sectionScores.education = analyzeEducation(text);
+            sectionScores.featured = 2; // Low base
+            sectionScores.licenses = analyzeLicenses(text);
+            sectionScores.volunteer = 2; // Low base
+            
+            // Calculate total weighted score
+            var totalWeightedScore = 0;
+            for (var section in PROFILE_WEIGHTS) {
+                if (sectionScores[section] !== undefined) {
+                    totalWeightedScore += (sectionScores[section] * PROFILE_WEIGHTS[section] * 10);
+                }
+            }
+            
+            var analysis = {
+                totalScore: Math.round(totalWeightedScore),
+                sectionScores: sectionScores,
+                sections: [],
+                issues: [],
+                strengths: [],
+                text: text
+            };
+            
+            // Generate section analysis
+            generateSectionAnalysis(analysis);
+            
+            return analysis;
+        }
+
+        // Individual section analysis functions
+        function analyzeHeadline(text) {
+            var score = 0;
+            
+            // Check for social work identifiers
+            var swIdentifiers = ['social worker', 'lcsw', 'lmsw', 'lgsw', 'lsw'];
+            for (var i = 0; i < swIdentifiers.length; i++) {
+                if (text.indexOf(swIdentifiers[i]) !== -1) {
+                    score += 4;
+                    break;
+                }
+            }
+            
+            // Check for specialization
+            var specializations = ['clinical', 'school', 'medical', 'healthcare', 'community', 'trauma', 'therapy'];
+            for (var i = 0; i < specializations.length; i++) {
+                if (text.indexOf(specializations[i]) !== -1) {
+                    score += 3;
+                    break;
+                }
+            }
+            
+            // Check for value proposition
+            var valueWords = ['help', 'support', 'advocate', 'empower', 'specialist'];
+            for (var i = 0; i < valueWords.length; i++) {
+                if (text.indexOf(valueWords[i]) !== -1) {
+                    score += 2;
+                    break;
+                }
+            }
+            
+            // Length check
+            if (text.length > 50) score += 1;
+            
+            return Math.min(score, 10);
+        }
+
+        function analyzeAbout(text) {
+            var score = 0;
+            
+            // Length scoring
+            if (text.length > 200) score += 2;
+            if (text.length > 500) score += 2;
+            
+            // Professional story elements
+            if (text.indexOf('experience') !== -1 || text.match(/\d+\s*years?/)) score += 2;
+            
+            // Values and mission
+            var valueWords = ['passionate', 'committed', 'dedicated', 'advocate'];
+            for (var i = 0; i < valueWords.length; i++) {
+                if (text.indexOf(valueWords[i]) !== -1) {
+                    score += 2;
+                    break;
+                }
+            }
+            
+            // Quantifiable achievements
+            if (text.match(/\d+/)) score += 2;
+            
+            return Math.min(score, 10);
+        }
+
+        function analyzeExperience(text) {
+            var score = 0;
+            
+            // Action verbs
+            var actionVerbs = ['provided', 'coordinated', 'facilitated', 'managed', 'developed'];
+            var verbCount = 0;
+            for (var i = 0; i < actionVerbs.length; i++) {
+                if (text.indexOf(actionVerbs[i]) !== -1) verbCount++;
+            }
+            score += Math.min(verbCount * 2, 6);
+            
+            // Evidence-based practices
+            var ebpTerms = ['cbt', 'dbt', 'emdr', 'evidence-based', 'trauma-informed'];
+            for (var i = 0; i < ebpTerms.length; i++) {
+                if (text.indexOf(ebpTerms[i]) !== -1) {
+                    score += 2;
+                    break;
+                }
+            }
+            
+            // Quantifiable results
+            if (text.match(/\d+\s*(client|patient|case)/)) score += 2;
+            
+            return Math.min(score, 10);
+        }
+
+        function analyzeSkills(text) {
+            var score = 0;
+            
+            // Core social work skills
+            var coreSkills = ['case management', 'crisis intervention', 'assessment', 'counseling', 'advocacy'];
+            var skillCount = 0;
+            for (var i = 0; i < coreSkills.length; i++) {
+                if (text.indexOf(coreSkills[i]) !== -1) skillCount++;
+            }
+            score += Math.min(skillCount * 2, 8);
+            
+            // Therapeutic approaches
+            var therapySkills = ['cbt', 'dbt', 'emdr', 'family therapy', 'group therapy'];
+            for (var i = 0; i < therapySkills.length; i++) {
+                if (text.indexOf(therapySkills[i]) !== -1) {
+                    score += 1;
+                }
+            }
+            
+            return Math.min(score, 10);
+        }
+
+        function analyzeEducation(text) {
+            var score = 5; // Base assumption
+            
+            var educationTerms = ['msw', 'bsw', 'master', 'bachelor', 'social work', 'university'];
+            for (var i = 0; i < educationTerms.length; i++) {
+                if (text.indexOf(educationTerms[i]) !== -1) {
+                    score += 3;
+                    break;
+                }
+            }
+            
+            if (text.indexOf('cswe') !== -1) score += 2;
+            
+            return Math.min(score, 10);
+        }
+
+        function analyzeLicenses(text) {
+            var score = 0;
+            
+            // License types
+            var licenseTypes = ['lcsw', 'lmsw', 'lgsw', 'lsw', 'licensed'];
+            for (var i = 0; i < licenseTypes.length; i++) {
+                if (text.indexOf(licenseTypes[i]) !== -1) {
+                    score += 5;
+                    break;
+                }
+            }
+            
+            // Certifications
+            var certifications = ['certified', 'emdr', 'mental health first aid'];
+            for (var i = 0; i < certifications.length; i++) {
+                if (text.indexOf(certifications[i]) !== -1) {
+                    score += 2;
+                    break;
+                }
+            }
+            
+            // State licensing
+            if (text.match(/license.*#?\d+/i)) score += 3;
+            
+            return Math.min(score, 10);
+        }
+
+        // Generate section analysis
+        function generateSectionAnalysis(analysis) {
+            var sectionNames = {
+                headline: 'Professional Headline',
+                photo: 'Profile Photo',
+                about: 'About Section',
+                experience: 'Experience',
+                skills: 'Skills & Endorsements',
+                recommendations: 'Recommendations',
+                education: 'Education',
+                featured: 'Featured Content',
+                licenses: 'Licenses & Certifications',
+                volunteer: 'Volunteer Experience'
+            };
+            
+            for (var section in analysis.sectionScores) {
+                var score = analysis.sectionScores[section];
+                var status;
+                
+                if (score >= 8) {
+                    status = 'excellent';
+                    analysis.strengths.push(sectionNames[section] + ' shows strong professional positioning');
+                } else if (score >= 6) {
+                    status = 'good';
+                } else if (score >= 4) {
+                    status = 'warning';
+                } else {
+                    status = 'needs-work';
+                    analysis.issues.push(sectionNames[section] + ' needs improvement');
+                }
+                
+                var feedback = getSectionFeedback(section, status);
+                
+                analysis.sections.push({
+                    name: sectionNames[section],
+                    status: status,
+                    feedback: feedback,
+                    score: score
+                });
+            }
+        }
+
+        // Get section-specific feedback
+        function getSectionFeedback(section, status) {
+            var feedback = {
+                headline: {
+                    excellent: 'Headline clearly identifies you as a social work professional',
+                    good: 'Headline includes professional identity, consider adding specialization',
+                    warning: 'Headline could be more specific about your role',
+                    'needs-work': 'Add a headline with your license type and specialization'
+                },
+                about: {
+                    excellent: 'About section tells compelling professional story',
+                    good: 'About section has good detail, consider adding achievements',
+                    warning: 'Expand about section with more specific details',
+                    'needs-work': 'Create comprehensive about section'
+                },
+                experience: {
+                    excellent: 'Experience descriptions are detailed with outcomes',
+                    good: 'Good experience detail, consider adding more achievements',
+                    warning: 'Add more specific details about roles',
+                    'needs-work': 'Enhance experience with action verbs and achievements'
+                }
+            };
+            
+            return feedback[section] ? feedback[section][status] : section + ' section needs attention';
+        }
+
+        // Update score breakdown display
+        function updateScoreBreakdown(sectionScores) {
+            var container = document.getElementById('scoreBreakdown');
+            if (!container) return;
+            
+            container.innerHTML = '<h4 style="color: #163C77; margin-bottom: 10px;">Section Breakdown (LinkedIn Weighting)</h4>';
+            
+            var sectionNames = {
+                headline: 'Professional Headline',
+                photo: 'Profile Photo',
+                about: 'About Section',
+                experience: 'Experience',
+                skills: 'Skills & Endorsements',
+                recommendations: 'Recommendations',
+                education: 'Education',
+                featured: 'Featured Content',
+                licenses: 'Licenses & Certifications',
+                volunteer: 'Volunteer Experience'
+            };
+            
+            for (var section in sectionScores) {
+                var score = sectionScores[section];
+                var weight = PROFILE_WEIGHTS[section] || 0;
+                var weightedPoints = Math.round(score * weight * 10);
+                
+                var div = document.createElement('div');
+                div.className = 'score-item';
+                
+                div.innerHTML = '<span class="score-item-name">' + sectionNames[section] + ' (' + Math.round(weight * 100) + '%)</span>' +
+                               '<span class="score-item-value">' + score + '/10 (' + weightedPoints + ' pts)</span>';
+                
+                container.appendChild(div);
+            }
+        }
+
+        // Update detailed analysis display
+        function updateAnalysisDetails(analysis) {
+            var container = document.getElementById('analysisDetails');
+            if (!container) return;
+            
+            container.innerHTML = '';
+            
+            for (var i = 0; i < analysis.sections.length; i++) {
+                var section = analysis.sections[i];
+                
+                var div = document.createElement('div');
+                div.className = 'analysis-section';
+                
+                var header = document.createElement('div');
+                header.className = 'analysis-header';
+                
+                var title = document.createElement('div');
+                title.className = 'analysis-title';
+                title.textContent = section.name;
+                
+                var badge = document.createElement('span');
+                badge.className = 'status-badge status-' + section.status;
+                badge.textContent = section.status.replace('-', ' ');
+                
+                header.appendChild(title);
+                header.appendChild(badge);
+                
+                var feedback = document.createElement('div');
+                feedback.style.color = '#4a5568';
+                feedback.style.fontSize = '0.9rem';
+                feedback.textContent = section.feedback;
+                
+                div.appendChild(header);
+                div.appendChild(feedback);
+                container.appendChild(div);
+            }
+        }
+
+        // Update recommendations
+        function updateRecommendations(analysis) {
+            var container = document.getElementById('recommendationsList');
+            if (!container) return;
+            
+            container.innerHTML = '';
+            
+            // Add overall guidance
+            var guidanceDiv = document.createElement('div');
+            guidanceDiv.className = 'recommendation-item';
+            var guidanceText = '';
+            var guidanceType = '';
+            
+            if (analysis.totalScore >= 80) {
+                guidanceType = '🏆 Excellent Profile';
+                guidanceText = 'Your profile demonstrates strong professional positioning. Focus on maintaining current content and engaging with your network.';
+            } else if (analysis.totalScore >= 60) {
+                guidanceType = '✨ Good Foundation';
+                guidanceText = 'Your profile has solid elements. Focus on the priority improvements below.';
+            } else {
+                guidanceType = '🔧 Needs Enhancement';
+                guidanceText = 'Your profile needs improvement. Start with headline, about section, and experience details.';
+            }
+            
+            guidanceDiv.innerHTML = '<div class="recommendation-type">' + guidanceType + '</div>' +
+                                   '<div class="recommendation-text">' + guidanceText + '</div>';
+            container.appendChild(guidanceDiv);
+            
+            // Add strengths
+            for (var i = 0; i < Math.min(analysis.strengths.length, 2); i++) {
+                var strength = analysis.strengths[i];
+                var div = document.createElement('div');
+                div.className = 'recommendation-item';
+                div.innerHTML = '<div class="recommendation-type" style="color: #065f46;">✓ Strength</div>' +
+                               '<div class="recommendation-text">' + strength + '</div>';
+                container.appendChild(div);
+            }
+            
+            // Add priority improvements
+            for (var i = 0; i < analysis.issues.length; i++) {
+                var issue = analysis.issues[i];
+                var div = document.createElement('div');
+                div.className = 'recommendation-item';
+                div.innerHTML = '<div class="recommendation-type">🎯 Priority</div>' +
+                               '<div class="recommendation-text">' + issue + '</div>';
+                container.appendChild(div);
+            }
+            
+            // Add keyword suggestions if score is low
+            if (analysis.totalScore < 70) {
+                var keywordDiv = document.createElement('div');
+                keywordDiv.className = 'recommendation-item';
+                keywordDiv.innerHTML = '<div class="recommendation-type">🔑 Keywords</div>' +
+                    '<div class="recommendation-text">Boost visibility with these social work keywords:</div>' +
+                    '<div class="keyword-suggestions">' +
+                    '<div class="keyword-tag">Licensed Clinical Social Worker</div>' +
+                    '<div class="keyword-tag">Evidence-Based Practice</div>' +
+                    '<div class="keyword-tag">Crisis Intervention</div>' +
+                    '<div class="keyword-tag">Mental Health Counseling</div>' +
+                    '<div class="keyword-tag">Trauma-Informed Care</div>' +
+                    '</div>';
+                container.appendChild(keywordDiv);
+            }
+        }
+
+        // Template copying functionality
+        function copyToClipboard(button) {
+            var templateText = button.previousElementSibling.textContent;
+            
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(templateText.trim()).then(function() {
+                    var originalText = button.textContent;
+                    button.textContent = 'Copied!';
+                    button.style.background = '#065f46';
+                    setTimeout(function() {
+                        button.textContent = originalText;
+                        button.style.background = '#3CBFBF';
+                    }, 2000);
+                }).catch(function(err) {
+                    fallbackCopyTextToClipboard(templateText.trim(), button);
+                });
+            } else {
+                fallbackCopyTextToClipboard(templateText.trim(), button);
+            }
+        }
+
+        function fallbackCopyTextToClipboard(text, button) {
+            var textArea = document.createElement("textarea");
+            textArea.value = text;
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            
+            try {
+                var successful = document.execCommand('copy');
+                if (successful) {
+                    var originalText = button.textContent;
+                    button.textContent = 'Copied!';
+                    button.style.background = '#065f46';
+                    setTimeout(function() {
+                        button.textContent = originalText;
+                        button.style.background = '#3CBFBF';
+                    }, 2000);
+                }
+            } catch (err) {
+                showMessage('Copy failed - please copy manually', 'error');
+            }
+            
+            document.body.removeChild(textArea);
+        }
+    </script>
+</body>
+</html>
